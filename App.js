@@ -85,4 +85,4 @@ Navigation.startSingleScreenApp({
     screen: "awesome-places.AuthScreen",
     title: "Login"
   }
-});
+});//compare

@@ -17,5 +17,5 @@ const startTabs = () => {
             ]
         });
     };
-
+//whatis that
 export default startTabs;

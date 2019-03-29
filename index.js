@@ -13,3 +13,4 @@ const RNRedux = () => (
 );
 
 AppRegistry.registerComponent('rncourse', () => RNRedux);
+//heheh
