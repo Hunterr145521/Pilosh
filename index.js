@@ -8,9 +8,7 @@ const store = configureStore();
 const RNRedux = () => (
   <Provider store = {store}>
     <App />
-    //NO CHANGE
-    //YES Change
+
   </Provider>
 );
 AppRegistry.registerComponent(appName, () => RNRedux);
-//ok
