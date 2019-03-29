@@ -68,15 +68,17 @@
 //
 // export default connect(mapStateToProps, mapDispatchToProps)(App);
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////;
-import {Navigation} from 'react-native-navigation';
-import AuthScreen from './src/screens/Auth/Auth';
-//Register Screen
-Navigation.registerComponent("PiLoSh.AuthScreen",() => AuthScreen);
+ import { Navigation } from "react-native-navigation";
 
-//Starting the app!!!1
-Navigation.StartingSingleScreenApp({
-  screen: {
-    screen: "PiLoSh.AuthScreen",
-    title: "Login"
-  }
-});
+ import AuthScreen from "./src/screens/Auth/Auth";
+
+ // Register Screens
+ Navigation.registerComponent("awesome-places.AuthScreen", () => AuthScreen);
+
+ // Start a App
+ Navigation.startSingleScreenApp({
+   screen: {
+     screen: "awesome-places.AuthScreen",
+     title: "Login"
+   }
+ });
