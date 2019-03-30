@@ -4,6 +4,19 @@ import PlaceInput from '../../components/PlaceInput/PlaceInput';
 import { addPlace } from '../../store/actions/index';
 import { connect } from 'react-redux';
 class SharePlaceScreen extends Component {
+    constructor(props) {
+      super(props);
+      this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
+    }
+    onNavigatorEvent = event => {
+      if(event.type === "NavBarButtonPress") {
+        if(event.id === "SideDrawerToggle"){
+          this.props.navigator.toggleDrawer({
+            side: "left"
+          });
+        }
+      }
+    }
   placeAaddedHandler = placeName => {
     this.props.onAddPlace(placeName);
   }
