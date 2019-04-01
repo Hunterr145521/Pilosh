@@ -4,10 +4,26 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 class SideDrawer extends Component {
   render(){
     return(
-      <View style={[styles.container, {width: Dimensions.get("window").width * 0.7}]}>
+      <View
+       style={[styles.container,
+        {width: Dimensions.get("window").width * 0.7}
+      ]}
+      >
       <TouchableOpacity>
-      <View>
-      <Icon name="arrow_back_ios" size={30} color="#aaa"/>
+      <View style={styles.drawerItem}>
+      <Icon name="perm-identity" size={30} color="#aaa" style={styles.drawerItemIcon}/>
+      <Text>Profile</Text>
+      </View>
+      </TouchableOpacity>
+      <TouchableOpacity>
+      <View style={styles.drawerItem}>
+      <Icon name="help" size={30} color="#aaa" style={styles.drawerItemIcon}/>
+      <Text>Help</Text>
+      </View>
+      </TouchableOpacity>
+      <TouchableOpacity>
+      <View style={styles.drawerItem}>
+      <Icon name="input" size={30} color="#aaa" style={styles.drawerItemIcon}/>
       <Text>Sign Out</Text>
       </View>
       </TouchableOpacity>
@@ -18,10 +34,19 @@ class SideDrawer extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 22,
+    paddingTop: 50,
     backgroundColor: "#90caf9",
     color: "#000",
     flex: 1
+  },
+  drawerItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 10,
+    backgroundColor:"#eee"
+  },
+  drawerItemIcon:{
+    marginRight:"10%"
   }
 })
 export default SideDrawer;
