@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Dimensions, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, View, Dimensions, StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 class SideDrawer extends Component {
   render(){
@@ -10,22 +10,22 @@ class SideDrawer extends Component {
       ]}
       >
       <TouchableOpacity>
-      <View style={styles.drawerItem}>
-      <Icon name="perm-identity" size={30} color="#aaa" style={styles.drawerItemIcon}/>
-      <Text>Profile</Text>
-      </View>
+        <View style={styles.drawerItem}>
+          <Icon name={Platform.OS === "android" ? "perm-identity" : "ios-log-out"} size={30} color="#aaa" style={styles.drawerItemIcon}/>
+          <Text>Profile</Text>
+        </View>
       </TouchableOpacity>
       <TouchableOpacity>
-      <View style={styles.drawerItem}>
-      <Icon name="help" size={30} color="#aaa" style={styles.drawerItemIcon}/>
-      <Text>Help</Text>
-      </View>
+        <View style={styles.drawerItem}>
+          <Icon name={Platform.OS === "android" ? "help": "help"} size={30} color="#aaa" style={styles.drawerItemIcon}/>
+          <Text>Help</Text>
+          </View>
       </TouchableOpacity>
       <TouchableOpacity>
-      <View style={styles.drawerItem}>
-      <Icon name="input" size={30} color="#aaa" style={styles.drawerItemIcon}/>
-      <Text>Sign Out</Text>
-      </View>
+        <View style={styles.drawerItem}>
+          <Icon name={Platform.OS === "android" ? "input" : "input"} size={30} color="#aaa" style={styles.drawerItemIcon}/>
+          <Text>Sign Out</Text>
+          </View>
       </TouchableOpacity>
       </View>
     );
@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 10,
-    backgroundColor:"#eee"
+    backgroundColor:"#eee",
+    marginBottom: "1%"
   },
   drawerItemIcon:{
     marginRight:"10%"
