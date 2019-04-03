@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {View, Image, Button, StyleSheet, Text} from "react-native";
+import {View, Image, Button, StyleSheet, Text, Dimensions} from "react-native";
 
 class PickLocation extends Component {
   render(){
@@ -13,7 +13,6 @@ class PickLocation extends Component {
         </View>
       </View>
     );
-
   }
 }
 
@@ -22,11 +21,12 @@ const styles = StyleSheet.create({
     width: "100%",
   alignItems:"center"  }
   ,
-  placeholder: {
-    borderWidth:1,
-    borderColor:"#eee",
-    width:"80%",
-    height:150
+placeholder: {
+    borderWidth: 1,
+    borderColor: "black",
+    backgroundColor:"#eee",
+    width:"100%",
+    height:250
   },
   button:{
     margin:7
