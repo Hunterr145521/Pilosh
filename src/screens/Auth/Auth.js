@@ -291,6 +291,14 @@ class AuthScreen extends Component {
             valid={this.state.controls.confirmPassword.valid}
             touched={this.state.controls.confirmPassword.touched}
           />
+          <DefaultInput
+              placeholder="User_Name"
+              style={styles.input}
+              value={this.state.controls.name.value}
+              onChangeText={val => this.updateInputState("name", val)}
+              valid={this.state.controls.name.valid}
+              touched={this.state.controls.name.touched}
+            />
         </View>
       );
     }
@@ -312,14 +320,6 @@ class AuthScreen extends Component {
               onChangeText={val => this.updateInputState("email", val)}
               valid={this.state.controls.email.valid}
               touched={this.state.controls.email.touched}
-            />
-            <DefaultInput
-              placeholder="User_Name"
-              style={styles.input}
-              value={this.state.controls.name.value}
-              onChangeText={val => this.updateInputState("name", val)}
-              valid={this.state.controls.name.valid}
-              touched={this.state.controls.name.touched}
             />
 
             <View
