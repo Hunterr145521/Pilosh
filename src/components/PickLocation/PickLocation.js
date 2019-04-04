@@ -25,8 +25,8 @@ placeholder: {
     borderWidth: 1,
     borderColor: "black",
     backgroundColor:"#eee",
-    width:"100%",
-    height:250
+    width:"80%",
+    height:150
   },
   button:{
     margin:7
