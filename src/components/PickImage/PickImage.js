@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import {View, Image, Button, StyleSheet} from 'react-native';
 
-import imagePlaceholder from "../../assets/abc.jpg";
 
 class PickImage extends Component {
+  state = {
+    pickedImaged: null
+  };
+
   render(){
     return(
       <View style={styles.container}>
       <View style={styles.placeholder}>
-        <Image source={imagePlaceholder} style={styles.image} />
+        <Image source={this.state.pickedImaged} style={styles.image} />
       </View>
         <View style={styles.button}>
         <Button title ="Pick Image" onPress ={() => alert("Hello!")}/>
