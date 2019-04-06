@@ -282,6 +282,20 @@ class SharePlaceScreen extends Component {
   };
 
   render() {
+    let submitButton = (
+      <Button
+        title="Share the Place!"
+        onPress={this.placeAddedHandler}
+        disabled={
+          !this.state.controls.placeName.valid ||
+          !this.state.controls.location.valid ||
+          !this.state.controls.image.valid
+        }
+      />
+    );
+    if(this.props.isLoading) {
+      SubmitButton = <Text>Lets Make this visible to others!</Text>;
+    }
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -295,21 +309,18 @@ class SharePlaceScreen extends Component {
             onChangeText={this.placeNameChangedHandler}
           />
           <View style={styles.button}>
-            <Button
-              title="Share the Place!"
-              onPress={this.placeAddedHandler}
-              disabled={
-                !this.state.controls.placeName.valid ||
-                !this.state.controls.location.valid ||
-                !this.state.controls.image.valid
-              }
-            />
+          {SubmitButton}
           </View>
         </View>
       </ScrollView>
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    isLoading: state.ui.isLoading
+  };
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -338,4 +349,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(SharePlaceScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SharePlaceScreen);
