@@ -1,51 +1,56 @@
-const functions = require('firebase-functions');
-const cors= require("cors")({origin: true});
+const functions = require("firebase-functions");
+const cors = require("cors")({ origin: true });
 const fs = require("fs");
 const UUID = require("uuid-v4");
 
-const gcconfig ={
-
+const gcconfig = {
   projectId: "pilosh-53dc9",
   keyFilename: "pilosh.json"
 };
 
 const gcs = require("@google-cloud/storage")(gcconfig);
+
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
 exports.storeImage = functions.https.onRequest((request, response) => {
-  cors(reuest, response, () =>{
-    const body =JSON.parse(request.body);
-    fs.writeFileSync("/tmp/uploaded-image.jpg", body.image, "base64", err =>{
+  return cors(request, response, () => {
+    const body = JSON.parse(request.body);
+    fs.writeFileSync("/tmp/uploaded-image.jpg", body.image, "base64", err => {
       console.log(err);
-      return response.status(500).json({error: err});
+      return response.status(500).json({ error: err });
     });
     const bucket = gcs.bucket("pilosh-53dc9.appspot.com");
     const uuid = UUID();
 
-    bucket.upload("/tmp/uploaded-image.jpg", {
-      uploadType:"media",
-      destination: "/places/" + uuid + ".jpg",
-      metadata:{
+     bucket.upload(
+      "/tmp/uploaded-image.jpg",
+      {
+        uploadType: "media",
+        destination: "/places/" + uuid + ".jpg",
         metadata: {
-          contentType: "image/jpeg",
-          firebaseStorageDownloadTokens: uuid
+          metadata: {
+            contentType: "image/jpeg",
+            firebaseStorageDownloadTokens: uuid
+          }
         }
-      }
-    },
-    (err, file) => {
-        if(!err) {
-          response.status(201).json({
-            imageUrl: "https://firebasestorage.googleapis.com/v0/b/" + bucket.name +
+      },
+      (err, file) => {
+        if (!err) {
+           response.status(201).json({
+            imageUrl:
+              "https://firebasestorage.googleapis.com/v0/b/" +
+              bucket.name +
               "/o/" +
               encodeURIComponent(file.name) +
               "?alt=media&token=" +
               uuid
           });
-        } else{
-            console.log(err);
-            response.status.(500).json({error: err});
+        } else {
+          console.log(err);
+           response.status(500).json({ error: err });
         }
-    });
+      }
+    );
   });
 });
