@@ -176,7 +176,8 @@ import {
   Button,
   StyleSheet,
   ScrollView,
-  Image
+  Image,
+  ActivityIndicator
 } from "react-native";
 import { connect } from "react-redux";
 
@@ -294,7 +295,7 @@ class SharePlaceScreen extends Component {
       />
     );
     if(this.props.isLoading) {
-      SubmitButton = <Text>Lets Make this visible to others!</Text>;
+      submitButton = <ActivityIndicator size="small" color="#000"/>;
     }
     return (
       <ScrollView>
@@ -309,18 +310,14 @@ class SharePlaceScreen extends Component {
             onChangeText={this.placeNameChangedHandler}
           />
           <View style={styles.button}>
-          {SubmitButton}
+          {submitButton}
           </View>
         </View>
       </ScrollView>
     );
   }
 }
-const mapStateToProps = state => {
-  return {
-    isLoading: state.ui.isLoading
-  };
-};
+
 
 const styles = StyleSheet.create({
   container: {
@@ -342,6 +339,11 @@ const styles = StyleSheet.create({
     height: "100%"
   }
 });
+const mapStateToProps = state => {
+  return{
+    isLoading: state.ui.isLoading
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
