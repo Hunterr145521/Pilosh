@@ -2,8 +2,9 @@ import { AsyncStorage } from "react-native";
 import { TRY_AUTH, AUTH_SET_TOKEN, AUTH_REMOVE_TOKEN } from "./actionTypes";
 import { uiStartLoading, uiStopLoading } from './index';
 import startMainTabs from "../../screens/MainTabs/startMainTabs";
-import App from "../../App";
+import App from "../../../App";
 const API_KEY =  "AIzaSyA3_7AI-fWGPWhZvB6j5bGwF7k8FkAHrGA";
+
 export const tryAuth = (authData, authMode) => {
   return dispatch => {
     dispatch(uiStartLoading());
@@ -49,26 +50,28 @@ export const tryAuth = (authData, authMode) => {
 
 export const authStoreToken = (token, expiresIn, refreshToken) => {
   return dispatch => {
-    dispatch(authSetToken(token));
     const now = new Date();
     const expiryDate = now.getTime() + expiresIn * 1000;
+    dispatch(authSetToken(token, expiryDate));
     AsyncStorage.setItem("ap:auth:token", token);
     AsyncStorage.setItem("ap:auth:expiryDate", expiryDate.toString());
     AsyncStorage.setItem("ap:auth:refreshToken", refreshToken);
   };
 };
 
-export const authSetToken = token => {
+export const authSetToken = (token, expiryDate) => {
   return {
     type: AUTH_SET_TOKEN,
-    token: token
+    token: token,
+    expiryDate: expiryDate
   };
 };
 export const authGetToken = () => {
   return (dispatch, getState) => {
     const promise = new Promise((resolve, reject) => {
       const token = getState().auth.token;
-      if (!token) {
+      const expiryDate = getState().auth.expiryDate;
+      if (!token || new Date(expiryDate) <= new Date()) {
         let fetchedToken;
         AsyncStorage.getItem("ap:auth:token")
           .catch(err => reject())
@@ -136,7 +139,6 @@ export const authGetToken = () => {
       });
   };
 };
-
 export const authAutoSignIn = () => {
   return dispatch => {
     dispatch(authGetToken())
@@ -152,14 +154,12 @@ export const authClearStorage = () => {
     AsyncStorage.removeItem("ap:auth:token");
     AsyncStorage.removeItem("ap:auth:expiryDate");
     return AsyncStorage.removeItem("ap:auth:refreshToken");
-
   };
 };
 
 export const authLogout = () => {
   return dispatch => {
-    dispatch(authClearStorage())
-    .then(() => {
+    dispatch(authClearStorage()).then(() => {
       App();
     });
     dispatch(authRemoveToken());
@@ -167,7 +167,7 @@ export const authLogout = () => {
 };
 
 export const authRemoveToken = () => {
-  return{
+  return {
     type: AUTH_REMOVE_TOKEN
   };
 };

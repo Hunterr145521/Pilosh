@@ -1,3 +1,3 @@
-import App from './App';
-//ok
+import App from "./App";
+
 App();
