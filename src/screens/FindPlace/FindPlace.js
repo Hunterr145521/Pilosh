@@ -1,6 +1,3 @@
-
-// //
-
 import React, { Component } from "react";
 import {
   View,
@@ -29,11 +26,15 @@ class FindPlaceScreen extends Component {
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
   }
 
-  componentDidMount(){
-    this.props.onLoadPlaces();
-  }
-
   onNavigatorEvent = event => {
+    if (event.type === "ScreenChangedEvent") {
+      if (event.id === "willAppear") {
+        this.props.onLoadPlaces();
+        this.setState({////comment this lines for stop animation
+          placesLoaded: false//
+        })//
+      }
+    }
     if (event.type === "NavBarButtonPress") {
       if (event.id === "sideDrawerToggle") {
         this.props.navigator.toggleDrawer({
