@@ -87,10 +87,12 @@ exports.storeImage = functions.https.onRequest((request, response) => {
   });
 });
 
-export.deleteImage = function.database.ref("/places/{placeId}").onDelete(snapshot => {
-  const placeData = snapshot.val();
-  const imagePath = placeData.imagePath;
+exports.deleteImage = functions.database
+  .ref("/places/{placeId}")
+  .onDelete(event => {
+    const placeData = snapshot.val();
+    const imagePath = placeData.imagePath;
 
-  const bucket = gcs.bucket("pilosh-53dc9.appspot.com");
-  return bucket.file(imagePath).delete();
-});
+    const bucket = gcs.bucket("YOUR_PROJECT_ID.appspot.com");
+    return bucket.file(imagePath).delete();
+  });
