@@ -1,4 +1,3 @@
-
 import { SET_PLACES, REMOVE_PLACE, PLACE_ADDED, START_ADD_PLACE } from "./actionTypes";
 import { uiStartLoading, uiStopLoading, authGetToken } from "./index";
 
