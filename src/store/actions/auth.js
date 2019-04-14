@@ -1,6 +1,7 @@
 import { AsyncStorage } from "react-native";
+
 import { TRY_AUTH, AUTH_SET_TOKEN, AUTH_REMOVE_TOKEN } from "./actionTypes";
-import { uiStartLoading, uiStopLoading } from './index';
+import { uiStartLoading, uiStopLoading } from "./index";
 import startMainTabs from "../../screens/MainTabs/startMainTabs";
 import App from "../../../App";
 
@@ -9,33 +10,31 @@ const API_KEY =  "AIzaSyA3_7AI-fWGPWhZvB6j5bGwF7k8FkAHrGA";
 export const tryAuth = (authData, authMode) => {
   return dispatch => {
     dispatch(uiStartLoading());
-        let url = "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=" + API_KEY;
-        if (authMode === "signup") {
-          url = "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=" + API_KEY
-      }
-      fetch(url, {
-        method: "POST",
-        body: JSON.stringify({
-          email: authData.email,
-          password: authData.password,
-          returnSecureToken: true
-        }),
-        headers: {
-          "Content-Type": "application/json"
+    let url =
+     "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=" +
+      API_KEY;
+      if (authMode === "signup") {
+        url =
+         "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=" +
+          API_KEY;
         }
-      })
+        fetch(url, {
+          method: "POST",
+          body: JSON.stringify({
+            email: authData.email,
+            password: authData.password,
+            returnSecureToken: true
+          }),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
       .catch(err => {
         console.log(err);
         alert("Authentication failed, please try again!");
         dispatch(uiStopLoading());
       })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          throw(new Error());
-        }
-      })
+      .then(res => res.json())
       .then(parsedRes => {
         dispatch(uiStopLoading());
         console.log(parsedRes);
@@ -146,6 +145,7 @@ export const authGetToken = () => {
       });
   };
 };
+
 export const authAutoSignIn = () => {
   return dispatch => {
     dispatch(authGetToken())
