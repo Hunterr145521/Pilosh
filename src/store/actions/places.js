@@ -175,4 +175,4 @@ export const removePlace = key => {
    type: REMOVE_PLACE,
    key: key
  };
-};
+};//wow
